@@ -11,8 +11,22 @@ uses
   Classes, SysUtils;
 
 type
-  TAcaRCommand = class(TComponent)
+  TAcaCommandType = (acaCmdStructure);
+  TCommonAcaRCommand = class(TComponent)
+  private
+    FDataframeIdentifier : string;
+    FCommandType : TAcaCommandType;
+    FMainCommand : string;
+    procedure SetCommandType (AValue : TAcaCommandType);
+    procedure SetMainCommand (AValue : string);
   public
+    property vDataframeIdentifier : string read FDataframeIdentifier write FDataframeIdentifier;
+    property vCommandType : TAcaCommandType read FCommandType write SetCommandType;
+    property vMainCommand : string read FMainCommand write SetMainCommand;
+    constructor Create (AOwner : TComponent);
+  end;
+  TAcaRCommand = class(TCommonAcaRCommand)
+
   end;
 
 var
@@ -25,6 +39,25 @@ implementation
 procedure Register;
 begin
   RegisterComponents('AnoaCoreAnalytics',[TAcaRCommand]);
+end;
+
+constructor TCommonAcaRCommand.Create (AOwner : TComponent);
+begin
+  inherited Create(AOwner);
+  Self.vDataframeIdentifier := 'df';
+end;
+
+procedure TCommonAcaRCommand.SetCommandType (AValue : TAcaCommandType);
+begin
+  Self.FCommandType := AValue;
+  case Self.FCommandType of
+    acaCmdStructure : Self.vMainCommand := 'str(' + Self.vDataframeIdentifier + ')';
+  end;
+end;
+
+procedure TCommonAcaRCommand.SetMainCommand (AValue : string);
+begin
+  Self.FMainCommand := AValue;
 end;
 
 end.
