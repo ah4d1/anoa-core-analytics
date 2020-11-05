@@ -11,7 +11,7 @@ uses
   Classes, SysUtils;
 
 type
-  TAcaCommandType = (acaCmdStructure);
+  TAcaCommandType = (acaCmdDfStr);
   TCommonAcaRCommand = class(TComponent)
   private
     FDataframeIdentifier : string;
@@ -48,7 +48,7 @@ procedure TCommonAcaRCommand.SetCommandType (AValue : TAcaCommandType);
 begin
   Self.FCommandType := AValue;
   case Self.FCommandType of
-    acaCmdStructure : Self.vMainCommand := 'str(' + Self.vDataframeIdentifier + ')';
+    acaCmdDfStr : Self.vMainCommand := 'str(' + Self.vDataframeIdentifier + ')';
   end;
 end;
 
