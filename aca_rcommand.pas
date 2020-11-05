@@ -29,9 +29,6 @@ type
 
   end;
 
-var
-  vacaRCommand : TAcaRCommand;
-
 procedure Register;
 
 implementation
